@@ -1,0 +1,61 @@
+  <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wadee lens</title>
+         <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/style.css">
+            <script src="jquery-1.12.1.min.js"></script>
+
+    </head>
+       <script>
+        function insertNewQuestion() {
+            $.ajax({
+                type: 'POST',
+                url: "http://wadeelens.com/pages/ajax/insert_new_student.php",
+                dataType: "json",
+                data: {
+                    name: $("#name").val(),
+                    email: $("#email").val(),
+                    phone: $("#phone").val(),
+                    question: $("#question").val()
+
+                },
+                success: function (data) {
+                    $("#student_insert_div").html(data['result']);
+                },
+                error: function (a, e, d) {
+                    var err = a.responseText + ' ' + e + ' ' + d;
+                    alert(err);
+                }
+            });
+        }
+
+</script>
+    <body>
+
+   <form  >
+
+        <h1>Sign Up</h1>
+        
+        <fieldset>
+          <legend><span class="number">1</span>Your basic info</legend>
+          <label for="name">Name*:</label>
+          <input type="text" id="name" required name="name">
+          
+          <label for="mail">Email*:</label>
+          <input type="email" id="email" required name="email">
+          
+          <label for="Phone">Phone:</label>
+          <input type="text" id="phone" name="phone">
+          
+  
+          <legend><span class="number">2</span>Your Question?*</legend>
+           <textarea id="question" required name="question"></textarea>
+        </fieldset>
+       
+         <button type="button" onclick="insertNewQuestion()">Send</button>
+         </form>
+               <div id="student_insert_div"></div>
+
+    </body>
+</html>
